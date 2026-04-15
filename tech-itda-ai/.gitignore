@@ -1,0 +1,15 @@
+# 환경변수 (API 키 보호)
+backend/.env
+frontend/.env.local
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+
+# Next.js
+frontend/.next/
+frontend/node_modules/
+
+# 공통
+.DS_Store
