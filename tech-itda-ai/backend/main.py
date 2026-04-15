@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from database import Base, engine
+import models
+
+Base.metadata.create_all(bind=engine)
+
 import anthropic
 import os
 
