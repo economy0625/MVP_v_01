@@ -7,7 +7,13 @@ import os
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
+# 테이블 자동 생성
 Base.metadata.create_all(bind=engine)
+
+# 시드 데이터 자동 실행
+from seed_data import seed, seed_experts
+seed()
+seed_experts()
 
 app = FastAPI(title="테크잇다AI API")
 
@@ -17,6 +23,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://mvp-v-01.vercel.app",
         "https://mvp-v-01-git-main-economy0625s-projects.vercel.app",
+        "*"
     ],
     allow_methods=["*"],
     allow_headers=["*"],
