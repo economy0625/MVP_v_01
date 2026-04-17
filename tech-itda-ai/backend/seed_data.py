@@ -95,3 +95,77 @@ def seed():
 
 if __name__ == "__main__":
     seed()
+
+    from models import Expert
+
+experts = [
+    {
+        "name": "김철수 박사",
+        "grade": "넥서스인증",
+        "fields": "소재,경량화,자동차부품",
+        "programs": "소부장,산업부R&D,TIPS",
+        "rating": 4.9,
+        "location": "대구",
+        "career": "POSTECH 소재공학 박사. 경량화 소재 분야 20년 경력. 소부장 과제 10건 수행.",
+        "available": "가능"
+    },
+    {
+        "name": "이영희 박사",
+        "grade": "넥서스인증",
+        "fields": "ICT,스마트팩토리,AI",
+        "programs": "TIPS,초기창업패키지,디딤돌",
+        "rating": 4.8,
+        "location": "서울",
+        "career": "KAIST 전산학 박사. 스마트팩토리 AI 솔루션 전문. 창업 경험 2회.",
+        "available": "가능"
+    },
+    {
+        "name": "박민준 박사",
+        "grade": "넥서스인증",
+        "fields": "화학,에너지,바이오",
+        "programs": "산업부R&D,소부장,스케일업",
+        "rating": 4.7,
+        "location": "대구",
+        "career": "서울대 화학공학 박사. 에너지 효율화 전문. 특허 15건 보유.",
+        "available": "가능"
+    },
+    {
+        "name": "최지훈 박사",
+        "grade": "골드",
+        "fields": "제조업,생산성,품질관리",
+        "programs": "예비창업패키지,초기창업패키지,TIPS",
+        "rating": 4.6,
+        "location": "경북",
+        "career": "연세대 산업공학 박사. 제조 공정 최적화 전문. 중소기업 컨설팅 200건.",
+        "available": "가능"
+    },
+    {
+        "name": "정수연 박사",
+        "grade": "골드",
+        "fields": "전자전기,반도체,센서",
+        "programs": "소부장,산업부R&D,스케일업",
+        "rating": 4.5,
+        "location": "서울",
+        "career": "성균관대 전자공학 박사. 반도체 센서 분야 15년 경력. 기술이전 5건.",
+        "available": "가능"
+    },
+]
+
+def seed_experts():
+    db = SessionLocal()
+    try:
+        existing = db.query(Expert).count()
+        if existing > 0:
+            print(f"이미 {existing}명의 전문가 데이터가 있습니다.")
+            return
+        for e in experts:
+            expert = Expert(**e)
+            db.add(expert)
+        db.commit()
+        print(f"✅ {len(experts)}명 전문가 데이터 입력 완료")
+    finally:
+        db.close()
+
+if __name__ == "__main__":
+    seed()
+    seed_experts()

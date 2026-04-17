@@ -35,3 +35,16 @@ class Program(Base):
     budget_max = Column(Float)
     deadline = Column(String)
     region = Column(String, default="전국")
+
+class Expert(Base):
+    __tablename__ = "experts"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, nullable=False)
+    grade = Column(String, default="일반")
+    fields = Column(String)
+    programs = Column(String)
+    rating = Column(Float, default=4.0)
+    location = Column(String)
+    career = Column(String)
+    available = Column(String, default="가능")
