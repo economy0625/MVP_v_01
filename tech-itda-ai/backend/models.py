@@ -1,10 +1,9 @@
 from sqlalchemy import Column, String, Integer, Float, DateTime
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import declarative_base
 from datetime import datetime
 import uuid
 
-Base = declarative_base()
+from database import Base
 
 class Company(Base):
     __tablename__ = "companies"
