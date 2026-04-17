@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine
+from dotenv import load_dotenv
 import models
+import os
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 Base.metadata.create_all(bind=engine)
 
@@ -15,11 +19,12 @@ app.add_middleware(
 )
 
 # 라우터 연결
-from routers import companies, programs, recommend, score
+from routers import companies, programs, recommend, score, kpi
 app.include_router(companies.router)
 app.include_router(programs.router)
 app.include_router(recommend.router)
 app.include_router(score.router)
+app.include_router(kpi.router)
 
 @app.get("/")
 def health_check():
