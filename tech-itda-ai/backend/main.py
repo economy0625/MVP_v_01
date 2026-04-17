@@ -15,10 +15,11 @@ app.add_middleware(
 )
 
 # 라우터 연결
-from routers import companies, programs, recommend
+from routers import companies, programs, recommend, score
 app.include_router(companies.router)
 app.include_router(programs.router)
 app.include_router(recommend.router)
+app.include_router(score.router)
 
 @app.get("/")
 def health_check():
