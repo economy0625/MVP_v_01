@@ -29,7 +29,6 @@ function RecommendContent() {
 
   useEffect(() => {
     if (!company_id) return;
-
     fetch(`https://mvpv01-production.up.railway.app/api/recommend/?company_id=${company_id}`, {
       method: "POST",
     })
@@ -54,7 +53,7 @@ function RecommendContent() {
 
   return (
     <div style={{ maxWidth: 600, margin: "60px auto", padding: "0 24px" }}>
-      <h1 style={{ fontSize: 24, fontWeight: 600, marginBottom: 8 }}>
+      <h1 style={{ fontSize: 24, fontWeight: 600, marginBottom: 8, color: "#111" }}>
         맞춤 지원사업 추천
       </h1>
       <p style={{ color: "#666", marginBottom: 32 }}>
@@ -64,14 +63,13 @@ function RecommendContent() {
       {recommendations.length === 0 ? (
         <div style={{ padding: 24, background: "#f5f5f5", borderRadius: 12, textAlign: "center" }}>
           <p style={{ color: "#666" }}>조건에 맞는 지원사업이 없습니다.</p>
-          <p style={{ color: "#666", fontSize: 14 }}>기업 정보를 다시 확인해주세요.</p>
         </div>
       ) : (
         recommendations.map((rec, index) => (
           <div
             key={rec.program.id}
             style={{
-              background: "#fff",
+              background: "#ffffff",
               border: index === 0 ? "2px solid #2563eb" : "1px solid #e5e7eb",
               borderRadius: 12,
               padding: 24,
@@ -79,7 +77,6 @@ function RecommendContent() {
               position: "relative",
             }}
           >
-            {/* 1위 배지 */}
             {index === 0 && (
               <span style={{
                 position: "absolute",
@@ -96,9 +93,8 @@ function RecommendContent() {
               </span>
             )}
 
-            {/* 매칭 점수 */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 700, margin: 0, color: "#111111" }}>
                 {rec.program.name}
               </h2>
               <span style={{
@@ -108,31 +104,28 @@ function RecommendContent() {
                 fontWeight: 600,
                 padding: "4px 12px",
                 borderRadius: 20,
+                whiteSpace: "nowrap",
               }}>
                 매칭 {rec.match_score}점
               </span>
             </div>
 
-            {/* 기본 정보 */}
-            <div style={{ fontSize: 14, color: "#666", marginBottom: 12 }}>
+            <div style={{ fontSize: 14, color: "#555", marginBottom: 12 }}>
               <span style={{ marginRight: 16 }}>🏢 {rec.program.agency}</span>
               <span style={{ marginRight: 16 }}>📁 {rec.program.category}</span>
               <span>📍 {rec.program.region}</span>
             </div>
 
-            {/* 지원금 */}
             <div style={{ fontSize: 14, color: "#333", marginBottom: 12 }}>
               💰 지원금: {rec.program.budget_min?.toLocaleString()}만원
               ~ {rec.program.budget_max?.toLocaleString()}만원
             </div>
 
-            {/* 마감일 */}
             <div style={{ fontSize: 14, color: "#e74c3c", marginBottom: 16 }}>
               ⏰ 마감일: {rec.program.deadline}
             </div>
 
-            {/* 추천 이유 */}
-            <div>
+            <div style={{ marginBottom: 16 }}>
               <p style={{ fontSize: 13, color: "#888", marginBottom: 6 }}>추천 이유</p>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {rec.reasons.map((reason, i) => (
@@ -152,24 +145,67 @@ function RecommendContent() {
         ))
       )}
 
-      {/* 다시 입력하기 버튼 */}
-      <button
-        onClick={() => window.location.href = "/onboarding"}
-        style={{
-          width: "100%",
-          padding: "14px",
-          background: "#f3f4f6",
-          color: "#374151",
-          border: "none",
-          borderRadius: 8,
-          fontSize: 16,
-          fontWeight: 600,
-          cursor: "pointer",
-          marginTop: 8,
-        }}
-      >
-        ← 기업 정보 다시 입력하기
-      </button>
+      {/* 다음 단계 버튼들 */}
+      <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
+        <p style={{ fontSize: 14, fontWeight: 600, color: "#333", marginBottom: 4 }}>
+          다음 단계로 이동하세요
+        </p>
+        <button
+          onClick={() => window.location.href = `/score?company_id=${company_id}`}
+          style={{
+            width: "100%", padding: "14px",
+            background: "#2563eb", color: "#fff",
+            border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          📊 선정 확률 분석하기 →
+        </button>
+        <button
+          onClick={() => window.location.href = `/kpi?company_id=${company_id}`}
+          style={{
+            width: "100%", padding: "14px",
+            background: "#7c3aed", color: "#fff",
+            border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          🎯 KPI 자동 생성하기 →
+        </button>
+        <button
+          onClick={() => window.location.href = `/plan?company_id=${company_id}`}
+          style={{
+            width: "100%", padding: "14px",
+            background: "#059669", color: "#fff",
+            border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          📝 사업계획서 초안 생성하기 →
+        </button>
+        <button
+          onClick={() => window.location.href = `/experts?company_id=${company_id}`}
+          style={{
+            width: "100%", padding: "14px",
+            background: "#d97706", color: "#fff",
+            border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          👨‍🔬 전문가 매칭받기 →
+        </button>
+        <button
+          onClick={() => window.location.href = "/onboarding"}
+          style={{
+            width: "100%", padding: "14px",
+            background: "#f3f4f6", color: "#374151",
+            border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          ← 기업 정보 다시 입력하기
+        </button>
+      </div>
     </div>
   );
 }
