@@ -1,12 +1,16 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+# Railway 환경에서는 DATABASE_URL 환경변수 직접 사용
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+
+print(f"DATABASE_URL: {DATABASE_URL[:30]}...")  # 디버그용
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
