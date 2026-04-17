@@ -21,7 +21,7 @@ function ScoreContent() {
   useEffect(() => {
     if (!company_id) return;
 
-    fetch(`http://localhost:8000/api/score/?company_id=${company_id}`, {
+    fetch(`https://mvpv01-production.up.railway.app/api/score/?company_id=${company_id}`, {
       method: "POST",
     })
       .then((res) => res.json())

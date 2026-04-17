@@ -17,7 +17,7 @@ export default function OnboardingPage() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/companies/", {
+      const res = await fetch("https://mvpv01-production.up.railway.app/api/companies/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

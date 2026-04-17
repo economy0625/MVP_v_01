@@ -30,7 +30,7 @@ function RecommendContent() {
   useEffect(() => {
     if (!company_id) return;
 
-    fetch(`http://localhost:8000/api/recommend/?company_id=${company_id}`, {
+    fetch(`https://mvpv01-production.up.railway.app/api/recommend/?company_id=${company_id}`, {
       method: "POST",
     })
       .then((res) => res.json())

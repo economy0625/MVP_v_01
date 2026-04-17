@@ -28,7 +28,7 @@ function ExpertsContent() {
 
   useEffect(() => {
     if (!company_id) return;
-    fetch(`http://localhost:8000/api/experts/match?company_id=${company_id}`, {
+    fetch(`https://mvpv01-production.up.railway.app/api/experts/match?company_id=${company_id}`, {
       method: "POST",
     })
       .then((res) => res.json())

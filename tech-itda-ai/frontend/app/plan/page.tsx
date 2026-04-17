@@ -28,7 +28,7 @@ function PlanContent() {
 
   // 지원사업 목록 불러오기
   useEffect(() => {
-    fetch("http://localhost:8000/api/programs/")
+    fetch("https://mvpv01-production.up.railway.app/api/programs/")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setPrograms(data.data);
@@ -50,7 +50,7 @@ function PlanContent() {
       .filter((k) => k.length > 0);
 
     try {
-      const res = await fetch("http://localhost:8000/api/plan/generate", {
+      const res = await fetch("https://mvpv01-production.up.railway.app/api/plan/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

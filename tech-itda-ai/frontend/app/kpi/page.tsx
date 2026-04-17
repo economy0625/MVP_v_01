@@ -37,7 +37,7 @@ function KpiContent() {
     setValidations({});
 
     try {
-      const res = await fetch("http://localhost:8000/api/kpi/generate", {
+      const res = await fetch("https://mvpv01-production.up.railway.app/api/kpi/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -70,7 +70,7 @@ if (data.success) {
       const match = kpi.target.match(/[\d.]+/);
       const targetValue = match ? parseFloat(match[0]) : 0;
 
-      const res = await fetch("http://localhost:8000/api/kpi/validate", {
+      const res = await fetch("https://mvpv01-production.up.railway.app/api/kpi/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
