@@ -7,24 +7,22 @@ import os
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
-# 테이블 자동 생성
+# 테이블 자동 생성 (반드시 시드 데이터보다 먼저)
 Base.metadata.create_all(bind=engine)
 
-# 시드 데이터 자동 실행
-from seed_data import seed, seed_experts
-seed()
-seed_experts()
+# 시드 데이터 자동 실행 (테이블 생성 후)
+try:
+    from seed_data import seed, seed_experts
+    seed()
+    seed_experts()
+except Exception as e:
+    print(f"시드 데이터 오류 (무시): {e}")
 
 app = FastAPI(title="테크잇다AI API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://mvp-v-01.vercel.app",
-        "https://mvp-v-01-git-main-economy0625s-projects.vercel.app",
-        "*"
-    ],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
