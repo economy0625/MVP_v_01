@@ -13,7 +13,11 @@ app = FastAPI(title="테크잇다AI API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://mvp-v-01.vercel.app",
+        "https://mvp-v-01-git-main-economy0625s-projects.vercel.app",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
